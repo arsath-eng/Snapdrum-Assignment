@@ -90,7 +90,7 @@ What happens:
 
 
 Full Excalidraw (editable): [Workflow
-](https://excalidraw.com/#json=ijW7TShVmZoM1U7XeHVXt,qZixQDB37TG-WYKhNuiy1w)
+](https://excalidraw.com/#json=LPkG0cm-JxBwfObZdItwH,X4DpsxcGldb4scbiMWT_1g)
 ---
 
 ## 📂 Project Structure
@@ -109,5 +109,6 @@ movie-rag/
 ├── requirements.txt
 └── README.md
 ```
+
 
 
