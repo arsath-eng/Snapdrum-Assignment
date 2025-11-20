@@ -28,8 +28,8 @@ Click the image below to watch the walkthrough:
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/arsath-eng/movie-rag.git
-cd movie-rag
+git clone https://github.com/arsath-eng/Snapdrum-Assignment.git
+cd Snapdrum-Assignment
 ```
 
 ### 2. Create Virtual Environment (Recommended)
@@ -109,6 +109,7 @@ movie-rag/
 ├── requirements.txt
 └── README.md
 ```
+
 
 
 
