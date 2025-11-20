@@ -1,0 +1,6 @@
+venv5/
+.env
+data/wiki_movie_plots_deduped.csv
+data/faiss_index/
+
+__pycache__/
