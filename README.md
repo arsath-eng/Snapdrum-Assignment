@@ -1,74 +1,113 @@
 # 🎬 Mini RAG System (Movie Plots)
 
-A lightweight, modular Retrieval-Augmented Generation (RAG) system capable of answering natural language questions about movie plots. Built with **LangChain**, **NVIDIA NIM**, and **FAISS**.
+A lightweight, modular **Retrieval-Augmented Generation (RAG)** system designed to answer questions about movie plots with high accuracy. Built using **LangChain**, **NVIDIA NIM** (Llama 3), and **FAISS** for vector storage.
 
-![Architecture Diagram](https://your-image-link-here.com)
-*(Replace the link above with your Excalidraw image link or keep it in the repo)*
+# Architecture Diagram
+<img width="1788" height="1371" alt="Snapdrumpng" src="https://github.com/user-attachments/assets/448f9d3a-785e-4e3c-8504-23f0d08ac15e" />
 
-## 🚀 Features
-* **Modular Architecture:** Separated logic for ingestion (`preprocess.py`) and inference (`rag_engine.py`).
-* **Persistent Storage:** Uses FAISS to store vector embeddings on disk, preventing expensive re-indexing.
-* **Structured Output:** Guarantees valid JSON responses with citations and reasoning using Pydantic parsers.
-* **Smart Chunking:** Uses `RecursiveCharacterTextSplitter` to preserve context in long movie plots.
 
----
 
-## 📺 Video Walkthrough
-**[▶️ Click Here to Watch the Demo Video](YOUR_LOOM_VIDEO_LINK_HERE)**
-
-In this 2-minute video, I explain the end-to-end workflow:
-1.  **Ingestion:** Loading and embedding 500+ movie plots.
-2.  **Retrieval:** Performing semantic similarity search.
-3.  **Generation:** Producing an evidence-based answer.
+## ✨ Key Features
+- Persistent FAISS index → loads in **<2 seconds** after first run
+- Structured JSON answers with sources & reasoning
+- Smart chunking (300 tokens) that keeps plot spoilers intact
+- Completely **free for 6+ months** using NVIDIA's generous trial
+- No OpenAI costs, no rate-limit headaches
 
 ---
 
-## 🛠️ Installation
+## 📺 Video Demo
 
-### 1. Clone the Repository
+Click the image below to watch the walkthrough:
+
+[![Watch Video](https://img.shields.io/badge/Watch%20Video-Loom-blue?style=for-the-badge&logo=loom)](https://www.loom.com/share/a1631ffffcd644b1bdb18681d0f9f0c3)
+
+---
+
+## 🚀 Quick Start (5 Minutes)
+
+### 1. Clone the Repo
 ```bash
-git clone [https://github.com/arsath-eng/movie-rag.git](https://github.com/arsath-eng/movie-rag.git)
+git clone https://github.com/arsath-eng/movie-rag.git
 cd movie-rag
+```
 
-2. Setup EnvironmentIt is recommended to use a virtual environment:Bash# Create virtual environment
-python -m venv venv5
+### 2. Create Virtual Environment (Recommended)
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# Mac/Linux
+source venv/bin/activate
+```
 
-# Activate it
-# Windows:
-venv5\Scripts\activate
-# Mac/Linux:
-source venv5/bin/activate
-3. Install DependenciesBashpip install -r requirements.txt
-4. ConfigurationCreate a .env file in the root directory and add your NVIDIA API Key:PlaintextNVIDIA_API_KEY=nvapi-xxxxxxxxxxxxxxxxxxxxxxxxxxxx
-5. Download DataDownload wiki_movie_plots_deduped.csv from Kaggle.Place it in the data/ folder:Plaintextmovie_rag/data/wiki_movie_plots_deduped.csv
-🏃‍♂️ UsageRun the main application via the command line:Bashpython -m app.main
-What happens next:The app checks for an existing FAISS index in data/faiss_index/.If found: It loads instantly.If not found: It loads the CSV, chunks the text, generates embeddings (via NVIDIA), and saves the index for future use.You can then ask questions interactively.Example Query:"Describe the ending of The Great Train Robbery."Example JSON Output:JSON{
-    "answer": "The bandits are eventually tracked down by a posse...",
-    "contexts": ["The men quickly form a posse..."],
-    "reasoning": "I found details about the shootout in the provided text."
-}
-🧠 Architecture FlowExcalidraw Diagram LinkThe system follows a strict RAG pipeline:Ingestion: Raw CSV $\rightarrow$ Cleaning $\rightarrow$ Chunking (300 words) $\rightarrow$ NVIDIA Embeddings $\rightarrow$ FAISS Vector Store.Retrieval: User Query $\rightarrow$ Embedding $\rightarrow$ Similarity Search (Top-3).Generation: Context + Query $\rightarrow$ Llama-3-70b (NVIDIA NIM) $\rightarrow$ JSON Parser.📂 Project StructurePlaintextmovie_rag/
+### 3. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 4. Get Your Free NVIDIA API Key (Valid for 6 Months)
+→ Go to: https://build.nvidia.com  
+→ Sign in with Google/GitHub  
+→ Choose "NVIDIA NIM" → "Llama 3 70B Instruct" or "meta/llama3-70b-instruct"  
+→ Click "Get API Key" → Copy the key (starts with `nvapi-...`)  
+→ It's completely free for the first 6 months with generous rate limits!
+
+### 5. Create `.env` File
+```bash
+echo "NVIDIA_API_KEY=nvapi-your-key-here" > .env
+```
+
+### 6. Download the Dataset
+1. Go to: https://www.kaggle.com/datasets/jrobischon/wikipedia-movie-plots
+2. Download `wiki_movie_plots_deduped.csv`
+3. Place it in the `data/` folder:
+```
+movie-rag/data/wiki_movie_plots_deduped.csv
+```
+
+---
+
+## ▶️ Run the App
+
+```bash
+python -m app.main
+```
+
+What happens:
+- First run → embeds all 30k+ movie plots (~3–5 min with NVIDIA NIM)
+- Saves FAISS index locally → next runs are instant (<2 sec load)
+- Then enters interactive mode
+
+### Example Queries and Response
+<img width="1122" height="286" alt="image" src="https://github.com/user-attachments/assets/b05fcc37-b2c4-4e3f-b687-3c241e29c2ad" />
+
+<img width="1109" height="461" alt="image" src="https://github.com/user-attachments/assets/0ddfa819-b35f-4909-b1f1-2fa1907017a5" />
+
+---
+
+## 🧠 Architecture Flow
+
+
+Full Excalidraw (editable): [Workflow
+](https://excalidraw.com/#json=ijW7TShVmZoM1U7XeHVXt,qZixQDB37TG-WYKhNuiy1w)
+---
+
+## 📂 Project Structure
+```
+movie-rag/
 ├── app/
-│   ├── main.py             # Entry point
-│   ├── preprocess.py       # Data cleaning & chunking
-│   ├── rag_engine.py       # Class for NVIDIA & FAISS logic
+│   ├── main.py             # CLI entry point
+│   ├── preprocess.py       # Cleaning & chunking
+│   ├── rag_engine.py       # FAISS + NVIDIA logic
 │   └── __init__.py
 ├── data/
-│   ├── faiss_index/        # Generated locally (Gitignored)
-│   └── wiki_movie...csv    # Dataset (Gitignored)
+│   ├── faiss_index/        # Auto-generated (gitignored)
+│   └── wiki_movie_plots_deduped.csv
 ├── notebooks/
-│   └── exploration.ipynb   # Data analysis & prototyping
+│   └── exploration.ipynb
 ├── requirements.txt
 └── README.md
+```
 
-### **Final Action List for You:**
-1.  **Create `.gitignore`** with the code above.
-2.  **Create `README.md`** with the code above.
-3.  **Paste your Links:** Open `README.md` and replace `YOUR_LOOM_VIDEO_LINK_HERE` and `YOUR_EXCALIDRAW_LINK_HERE` with your actual links.
-4.  **Commit & Push:**
-    ```bash
-    git add .
-    git commit -m "Final submission: Mini RAG System with modular architecture"
-    git push origin main
-    ```
 
